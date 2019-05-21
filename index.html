@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+	<title>tik-tak-to</title>
+</head>
+<style>
+    * {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: bold;
+    }
+    
+    .game {
+        margin-top: 2%;
+    }
+
+    #game__playground {
+        margin: 0 auto;
+        display: flex;
+        flex-wrap: wrap;
+        width: 612px;
+        height: 800px;
+    }
+
+    .game__field {
+        display: block; 
+        width: 200px;
+        height: 200px;
+        border: 2px solid black;
+        font-size: 180px;
+        text-align: center
+    }
+
+    #game__turn-headline {
+        display: block;
+        width: 600px;
+        height: auto;
+        font-size: 35px;
+        padding: 40px 0;
+        text-align: center;
+    }
+
+    #game__replay-btn {
+        display: block;
+        height: 100px;
+        height: auto;
+        font-size: 55px;
+        padding: 20px 0;
+    }
+
+    .win {
+        color: orange;
+        background: lightgreen;
+    }
+    
+   
+</style>
+<body class="game">
+    <div id="game__playground" class="game__playground">
+        <h2 id="game__turn-headline">Tap in a field to begin the game</h2>
+        <div id="game__field1" class="game__field"></div>
+        <div id="game__field2" class="game__field"></div>
+        <div id="game__field3" class="game__field"></div>
+        <div id="game__field4" class="game__field"></div>
+        <div id="game__field5" class="game__field"></div>
+        <div id="game__field6" class="game__field"></div>
+        <div id="game__field7" class="game__field"></div>
+        <div id="game__field8" class="game__field"></div>
+        <div id="game__field9" class="game__field"></div>
+        <button id="game__replay-btn">New Game?</button>
+    </div>
+
+<script src="assets/js/main.js"></script> 
+
+<script>
+
+class Game {
+    constructor() {
+        this.X_O = 0;
+        this.winners = document.querySelectorAll('.win');
+        this.turn = document.getElementById('game__turn-headline');
+        document.getElementById('game__replay-btn').addEventListener('click', () => this.replay());
+        this.field = document.getElementsByClassName('game__field');
+
+        for (let i = 0; i < this.field.length; i++) {
+            this.field[i].onclick = () => {
+
+                if(this.X_O % 2 === 0) {
+                    this.field[i].innerHTML = 'X';
+                    this.turn.innerHTML = 'O your Turn';
+                    this.X_O++;
+                    this.getWinner();
+                } else {
+                    this.field[i].innerHTML = 'O';
+                    this.turn.innerHTML = 'X your Turn';
+                    this.X_O++;
+                    this.getWinner();
+                }
+            }
+        }
+
+        this.field1 = document.getElementById('game__field1');
+        this.field2 = document.getElementById('game__field2');
+        this.field3 = document.getElementById('game__field3');
+        this.field4 = document.getElementById('game__field4');
+        this.field5 = document.getElementById('game__field5');
+        this.field6 = document.getElementById('game__field6');
+        this.field7 = document.getElementById('game__field7');
+        this.field8 = document.getElementById('game__field8');
+        this.field9 = document.getElementById('game__field9');
+    }
+
+    getWinner() {
+        if (this.field1.textContent != '' && this.field1.textContent === this.field2.textContent && this.field1.textContent === this.field3.textContent) {
+            this.selectWinnerFields(this.field1,this.field2,this.field3);
+        }
+
+        if (this.field4.textContent != '' && this.field4.textContent === this.field5.textContent && this.field4.textContent === this.field6.textContent) {
+            this.selectWinnerFields(this.field4,this.field5,this.field6);
+        }
+        
+        if (this.field7.textContent != '' && this.field7.textContent === this.field8.textContent && this.field7.textContent === this.field9.textContent) {
+            this.selectWinnerFields(this.field7,this.field8,this.field9);
+        }
+
+
+        if (this.field1.textContent != '' && this.field1.textContent === this.field4.textContent && this.field1.textContent === this.field7.textContent) {
+            this.selectWinnerFields(this.field1,this.field4,this.field7);
+        }
+        if (this.field2.textContent != '' && this.field2.textContent === this.field5.textContent && this.field2.textContent === this.field8.textContent) {
+            this.selectWinnerFields(this.field2,this.field5,this.field8);
+        }
+        if (this.field3.textContent != '' && this.field3.textContent === this.field6.textContent && this.field3.textContent === this.field9.textContent) {
+            this.selectWinnerFields(this.field3,this.field6,this.field9);
+        }
+
+
+        if (this.field1.textContent != '' && this.field1.textContent === this.field5.textContent && this.field1.textContent === this.field9.textContent) {
+            this.selectWinnerFields(this.field1,this.field5,this.field9);
+        }
+        if (this.field3.textContent != '' && this.field3.textContent === this.field5.textContent && this.field3.textContent === this.field7.textContent) {
+            this.selectWinnerFields(this.field3,this.field5,this.field7);
+        } 
+    }
+    
+    replay() {
+        for (let i = 0; i < this.field.length; i++) {
+            this.field[i].classList.remove('win');
+            this.field[i].innerHTML = '';
+            this.turn.innerHTML = 'Play';
+        }
+    }
+
+    selectWinnerFields(field1, field2, field3) {
+        field1.classList.add('win');
+        field2.classList.add('win');
+        field3.classList.add('win');
+
+        if (this.winners.textContent == 'X') {
+            console.log(this.winners.textContent);
+            this.turn.innerHTML = 'X Gratulation you win';
+        } else {
+            console.log(this.winners.textContent);
+            this.turn.innerHTML = 'O Gratulation you win'; 
+        }
+    }
+}
+
+var tikTakTo = new Game({});
+</script>
+
+</body>
+</html>
