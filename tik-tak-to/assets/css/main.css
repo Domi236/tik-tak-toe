@@ -1,0 +1,54 @@
+*{
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.tic-tac-to__field-wrapper{
+    display: flex;
+    flex-wrap: wrap;
+    width: 600px;
+    margin: 50px auto 0 auto;
+    }
+
+#turn{
+    width: 100%;
+    display: block;
+    text-align: center;
+    color: #fff;
+    font-size: 50px;
+    background: lightcoral;
+}
+
+.field{
+    width: 200px;
+    height: 200px;
+    border: 2px solid #000;
+    transition: all .25s ease-in-out;
+    font-size: 170px;
+    text-align: center;
+    line-height: 200px; 
+    cursor: pointer;
+}
+
+.field:hover{
+    background: rgba(10,10,10,0.8);
+    color: #fff;
+}
+
+#tik-tak-to__replay-btn{
+    background: #26C281;
+    display: block;
+    color: #fff;
+    font-weight: bold;
+    border: 2px solid green;
+    cursor: pointer; 
+    width: 400px;
+    height: 80px; 
+    font-size: 44px;
+    margin: 10px auto;
+}
+
+.win{
+    background: lightgreen; 
+    color: orangered;
+}
